@@ -33,8 +33,10 @@ function Navbar(){
                 {isUser && <li><NavLink to="/profile" activeclassname="active">Profile</NavLink></li>}
                 {isAdmin && <li><NavLink to="/admin" activeclassname="active">Admin</NavLink></li>}
 
-                {!isAuthenticated &&<li><NavLink to="/login" activeclassname="active">Login</NavLink></li>}
-                {!isAuthenticated &&<li><NavLink to="/register" activeclassname="active">Register</NavLink></li>}
+                {!isAuthenticated &&<div>
+                    <li><NavLink to="/login" activeclassname="active">Login</NavLink></li>
+                    <li><NavLink to="/register" activeclassname="active">Register</NavLink></li>
+                </div>}
                 {isAuthenticated && <li onClick={handleLogout}>Logout</li>}
                     </li>
                 </ui>
