@@ -71,7 +71,7 @@ const ManageBookingsPage = () => {
                         <p><strong>Booking Code:</strong> {booking.bookingConfirmationCode}</p>
                         <p><strong>Check In Date:</strong> {booking.checkInDate}</p>
                         <p><strong>Check out Date:</strong> {booking.checkOutDate}</p>
-                        <p><strong>Total Guests:</strong> {booking.totalNumOfGuest}</p>
+                        <p><strong>Total Guests:</strong> {booking.totalNumberOfGuests}</p>
                         <button
                             className="edit-room-button"
                             onClick={() => navigate(`/admin/edit-booking/${booking.bookingConfirmationCode}`)}
