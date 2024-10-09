@@ -20,29 +20,27 @@ function Navbar(){
 
 
     return(
-        <nav>
-            <div className="">
-                <ui>
-                    <li>
-                       <NavLink to="/home" activeClass="active">
-                        Home
-                        </NavLink> 
-                        <li><NavLink to="/rooms" activeclassname="active">Rooms</NavLink></li>
+        <nav className="navbar">
+            <div className="navbar-brand">
+                <NavLink to="/home">Vic Hotel</NavLink>
+            </div>
+            <ul className="navbar-ul">
+                <li><NavLink to="/home" activeclassname="active">Home</NavLink></li>
+                <li><NavLink to="/rooms" activeclassname="active">Rooms</NavLink></li>
                 <li><NavLink to="/find-booking" activeclassname="active">Find my Booking</NavLink></li>
 
                 {isUser && <li><NavLink to="/profile" activeclassname="active">Profile</NavLink></li>}
                 {isAdmin && <li><NavLink to="/admin" activeclassname="active">Admin</NavLink></li>}
 
-                {!isAuthenticated &&<div>
+                {!isAuthenticated &&<>
                     <li><NavLink to="/login" activeclassname="active">Login</NavLink></li>
                     <li><NavLink to="/register" activeclassname="active">Register</NavLink></li>
-                </div>}
+                </>}
                 {isAuthenticated && <li onClick={handleLogout}>Logout</li>}
-                    </li>
-                </ui>
-            </div>
+            </ul>
         </nav>
     )
 }
 
 export default Navbar;
+

@@ -2,7 +2,7 @@ import axios from "axios"
 
 export default class ApiService {
 
-    static BASE_URL = import.meta.env.BASE_URL
+    static BASE_URL = process.env.BASE_URL
 
     static getHeader() {
         const token = localStorage.getItem("token");
