@@ -2,7 +2,12 @@ import axios from "axios"
 
 export default class ApiService {
 
-    static BASE_URL = process.env.BASE_URL
+    static BASE_URL = process.env.REACT_APP_BASE_URL;
+
+    
+    
+    
+    // static BASE_URL = "http://localhost:8080"
 
     static getHeader() {
         const token = localStorage.getItem("token");
@@ -16,6 +21,7 @@ export default class ApiService {
 
     /* This  register a new user */
     static async registerUser(registration) {
+        
         const response = await axios.post(`${this.BASE_URL}/auth/register`, registration)
         return response.data
     }
@@ -100,6 +106,7 @@ export default class ApiService {
 
     /* This  gets all room types from thee database */
     static async getRoomTypes() {
+    
         const response = await axios.get(`${this.BASE_URL}/rooms/types`)
         return response.data
     }

@@ -11,7 +11,7 @@ function App() {
     <Navbar/>
       <div className='content'>
         <Routes>
-          <Route exact path='/home' element={<Home/>}/>
+          <Route exact path='/' element={<Home/>}/>
           {/* <Route exact path='/login' element={<LoginPage/>}/> */}
         </Routes>
       </div>
