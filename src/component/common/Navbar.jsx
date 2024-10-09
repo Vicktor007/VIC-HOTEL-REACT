@@ -14,7 +14,7 @@ function Navbar(){
         const isLogout = window.confirm("Are you sure you want to logout?");
         if (isLogout) {
             ApiService.logout();
-            navigate("/home");
+            navigate("/");
         }
     }
 
@@ -22,10 +22,10 @@ function Navbar(){
     return(
         <nav className="navbar">
             <div className="navbar-brand">
-                <NavLink to="/home">Vic Hotel</NavLink>
+                <NavLink to="/">Vic Royal</NavLink>
             </div>
             <ul className="navbar-ul">
-                <li><NavLink to="/home" activeclassname="active">Home</NavLink></li>
+                <li><NavLink to="/" activeclassname="active">Home</NavLink></li>
                 <li><NavLink to="/rooms" activeclassname="active">Rooms</NavLink></li>
                 <li><NavLink to="/find-booking" activeclassname="active">Find my Booking</NavLink></li>
 
