@@ -18,6 +18,7 @@ import EditRoomPage from './component/admin/EditRoomPage';
 import AddRoomPage from './component/admin/AddRoomPage';
 import ManageBookingsPage from './component/admin/ManageBookingsPage';
 import EditBookingPage from './component/admin/EditBookingPage';
+import BookingDetails from './component/booking&Rooms/BookingDetailsPage';
 
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/rooms" element={<AllRoomsPage />} />
           <Route path="/find-booking" element={<FindBookingPage />} />
+          <Route path="/bookingDetails/:confirmationCode" element={<BookingDetails />} />
 
           {/* Protected Routes */}
           <Route path="/room-details-book/:roomId"

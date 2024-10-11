@@ -110,7 +110,7 @@ const RoomDetailsPage = () => {
         // Hide message and navigate to homepage after 5 seconds
         setTimeout(() => {
           setShowMessage(false);
-          navigate('/rooms'); // Navigate to rooms
+          navigate(`/bookingDetails/${confirmationCode}`); // Navigate to booking details
         }, 10000);
       }
     } catch (error) {
