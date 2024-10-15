@@ -36,7 +36,7 @@ function Navbar(){
                     <li><NavLink to="/login" activeclassname="active">Login</NavLink></li>
                     <li><NavLink to="/register" activeclassname="active">Register</NavLink></li>
                 </>}
-                {isAuthenticated && <NavLink activeclassname="active" onClick={handleLogout}>Logout</NavLink>}
+                {isAuthenticated && <li><NavLink activeclassname="active" onClick={handleLogout}>Logout</NavLink></li>}
             </ul>
         </nav>
     )

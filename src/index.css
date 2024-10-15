@@ -1095,7 +1095,9 @@ h2 {
 }
 
 
-
+.phone-group {
+    max-width: 380px;
+}
 
 
 

@@ -1,6 +1,6 @@
 
 import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
-import './App.css';
+// import './App.css';
 import Home from './component/home/Home';
 import Navbar from './component/common/Navbar';
 import AllRoomsPage from './component/booking&Rooms/AllRoomsPage';
@@ -19,6 +19,7 @@ import AddRoomPage from './component/admin/AddRoomPage';
 import ManageBookingsPage from './component/admin/ManageBookingsPage';
 import EditBookingPage from './component/admin/EditBookingPage';
 import BookingDetails from './component/booking&Rooms/BookingDetailsPage';
+import Phoneauth from './component/auth/phoneauth';
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
           <Route path="/rooms" element={<AllRoomsPage />} />
           <Route path="/find-booking" element={<FindBookingPage />} />
           <Route path="/bookingDetails/:confirmationCode" element={<BookingDetails />} />
+          <Route  path='/phone' element={<Phoneauth/>}/>
 
           {/* Protected Routes */}
           <Route path="/room-details-book/:roomId"
