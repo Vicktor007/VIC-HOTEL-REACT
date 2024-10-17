@@ -20,6 +20,8 @@ import ManageBookingsPage from './component/admin/ManageBookingsPage';
 import EditBookingPage from './component/admin/EditBookingPage';
 import BookingDetails from './component/booking&Rooms/BookingDetailsPage';
 import Phoneauth from './component/auth/phoneauth';
+import ForgotPassword from './component/auth/ForgotPassword';
+import ResetPassword from './component/auth/ResetPassword';
 
 
 function App() {
@@ -36,6 +38,8 @@ function App() {
           <Route exact path='/' element={<Home/>}/>
           <Route exact path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:tokenId/:resetToken" element={<ResetPassword />} />
           <Route path="/rooms" element={<AllRoomsPage />} />
           <Route path="/find-booking" element={<FindBookingPage />} />
           <Route path="/bookingDetails/:confirmationCode" element={<BookingDetails />} />

@@ -16,6 +16,7 @@ const RoomDetailsPage = () => {
   const [numChildren, setNumChildren] = useState(0); // State variable for number of children
   const [totalPrice, setTotalPrice] = useState(0); // State variable for total booking price
   const [totalGuests, setTotalGuests] = useState(1); // State variable for total number of guests
+  const [notificationMode, setNotificationMode] = useState("email");
   const [showDatePicker, setShowDatePicker] = useState(false); // State variable to control date picker visibility
   const [userId, setUserId] = useState(''); // Set user id
   const [showMessage, setShowMessage] = useState(false); // State variable to control message visibility
@@ -97,7 +98,8 @@ const RoomDetailsPage = () => {
         checkInDate: formattedCheckInDate,
         checkOutDate: formattedCheckOutDate,
         numOfAdults: numAdults,
-        numOfChildren: numChildren
+        numOfChildren: numChildren,
+        notificationMode: notificationMode
       };
       console.log(booking)
       console.log(checkOutDate)
@@ -223,6 +225,9 @@ const RoomDetailsPage = () => {
           <div className="total-price">
             <p>Total Price: ${totalPrice}</p>
             <p>Total Guests: {totalGuests}</p>
+            <h5>How should we send the confirmation code to you?</h5>
+            <label for="email" ><input id='email' type="radio" name="notificationMode" value="email" selected onClick={(e) => setNotificationMode(e.target.value)} />Email</label><br/>
+            <label for="sms" ><input id='sms' type="radio" name="notificationMode" value="sms" onClick={(e) => setNotificationMode(e.target.value)} />SMS</label><br/>
             <button onClick={acceptBooking} className="accept-booking">Accept Booking</button>
           </div>
         )}

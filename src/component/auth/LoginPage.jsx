@@ -61,6 +61,9 @@ function LoginPage() {
             </form>
 
             <p className="register-link">
+                Forgot your password? <a href="/forgot-password">Reset your password</a>
+            </p>
+            <p className="register-link">
                 Don't have an account? <a href="/register">Register</a>
             </p>
         </div>

@@ -5,9 +5,10 @@ export default class ApiService {
     // static BASE_URL = process.env.REACT_APP_BASE_URL;
 
     
-    // static BASE_URL = "http://16.170.236.146:8080"
+    static BASE_URL = "http://16.170.236.146:8080"
     
-    static BASE_URL = "http://localhost:8080"
+    // static BASE_URL = "http://localhost:8080"
+    
 
     static getHeader() {
         const token = localStorage.getItem("token");
@@ -31,6 +32,17 @@ export default class ApiService {
         const response = await axios.post(`${this.BASE_URL}/auth/login`, loginDetails)
         return response.data
     }
+
+    static async forgotPassword(email) {
+        const response = await axios.post(`${this.BASE_URL}/auth/forgot-password`, {email});
+        return response.data
+    }
+
+    static async resetPassword(tokenId, resetToken, newPassword) {
+        const response = await axios.put(`${this.BASE_URL}/auth/reset-password/${tokenId}/${resetToken}`, { newPassword });
+        return response.data;
+    }
+    
 
     /***USERS */
 
