@@ -1,21 +1,28 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
+import Loader from '../common/Loader';
+import LoaderV2 from '../LoaderV2';
 
 const ProfilePage = () => {
     const [user, setUser] = useState(null);
     const [error, setError] = useState(null);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchUserProfile = async () => {
             try {
+                setLoading(true);
                 const response = await ApiService.getUserProfile();
                 // Fetch user bookings using the fetched user ID
                 const userPlusBookings = await ApiService.getUserBookings(response.user.id);
+                if (response.statusCode === 200) {
                 setUser(userPlusBookings.user)
-
+                setLoading(false);
+                }
             } catch (error) {
+                setLoading(false);
                 setError(error.response?.data?.message || error.message);
             }
         };
@@ -34,6 +41,7 @@ const ProfilePage = () => {
 
     return (
         <div className="profile-page">
+            {loading ? (<div className="profile-load"><LoaderV2/></div>) : ( <>
             {user && <h2>Welcome, {user.name}</h2>}
             <div className="profile-actions">
                 <button className="edit-profile-button" onClick={handleEditProfile}>Edit Profile</button>
@@ -66,6 +74,7 @@ const ProfilePage = () => {
                     )}
                 </div>
             </div>
+            </>)}
         </div>
     );
 };

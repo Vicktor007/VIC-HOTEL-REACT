@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
+import Loader from '../common/Loader';
 
 
 const AddRoomPage = () => {
@@ -17,6 +18,7 @@ const AddRoomPage = () => {
     const [success, setSuccess] = useState('');
     const [roomTypes, setRoomTypes] = useState([]);
     const [newRoomType, setNewRoomType] = useState(false);
+    const [loading, setLoading] = useState(false);
 
 
     useEffect(() => {
@@ -77,6 +79,7 @@ const AddRoomPage = () => {
         }
 
         try {
+            setLoading(true);
             const formData = new FormData();
             formData.append('roomType', roomDetails.roomType);
             formData.append('roomPrice', roomDetails.roomPrice);
@@ -89,13 +92,14 @@ const AddRoomPage = () => {
             const result = await ApiService.addRoom(formData);
             if (result.statusCode === 200) {
                 setSuccess('Room Added successfully.');
-                
+                setLoading(false);
                 setTimeout(() => {
                     setSuccess('');
                     navigate('/admin/manage-rooms');
                 }, 3000);
             }
         } catch (error) {
+            setLoading(false);
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
         }
@@ -154,7 +158,7 @@ const AddRoomPage = () => {
                         onChange={handleChange}
                     ></textarea>
                 </div>
-                <button className="update-button" onClick={addRoom}>Add Room</button>
+                <button className="update-button" onClick={addRoom}>{loading ? <Loader/> : ("Add Room")}</button>
             </div>
         </div>
     );

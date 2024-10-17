@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService'; // Assuming your service is in a file called ApiService.js
+import LoaderV2 from '../LoaderV2';
 
 const EditBookingPage = () => {
     const navigate = useNavigate();
@@ -8,15 +9,19 @@ const EditBookingPage = () => {
     const [bookingDetails, setBookingDetails] = useState(null); // State variable for booking details
     const [error, setError] = useState(null); // Track any errors
     const [success, setSuccessMessage] = useState(null); // Track any errors
+    const [loading, setLoading] = useState(false);
 
 
 
     useEffect(() => {
         const fetchBookingDetails = async () => {
             try {
+                setLoading(true)
                 const response = await ApiService.getBookingByConfirmationCode(bookingCode);
                 setBookingDetails(response.booking);
+                setLoading(false);
             } catch (error) {
+                setLoading(false)
                 setError(error.message);
             }
         };
@@ -26,21 +31,23 @@ const EditBookingPage = () => {
 
 
     const acheiveBooking = async (bookingId) => {
-        if (!window.confirm('Are you sure you want to Acheive this booking?')) {
+        if (!window.confirm('Are you sure you want to cancel this booking?')) {
             return; // Do nothing if the user cancels
         }
 
         try {
+            setLoading(true);
             const response = await ApiService.cancelBooking(bookingId);
             if (response.statusCode === 200) {
-                setSuccessMessage("The boking was Successfully Acheived")
-                
+                setSuccessMessage("The boking was Successfully cancelled")
+                setLoading(false);
                 setTimeout(() => {
                     setSuccessMessage('');
                     navigate('/admin/manage-bookings');
                 }, 3000);
             }
         } catch (error) {
+            setLoading(false);
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
         }
@@ -51,7 +58,10 @@ const EditBookingPage = () => {
             <h2>Booking Detail</h2>
             {error && <p className='error-message'>{error}</p>}
             {success && <p className='success-message'>{success}</p>}
-            {bookingDetails && (
+            {
+                loading ? <LoaderV2/> : <>
+                
+                {bookingDetails && (
                 <div className="booking-details">
                     <h3>Booking Details</h3>
                     <p>Confirmation Code: {bookingDetails.bookingConfirmationCode}</p>
@@ -83,10 +93,12 @@ const EditBookingPage = () => {
                     </div>
                     <button
                         className="acheive-booking"
-                        onClick={() => acheiveBooking(bookingDetails.id)}>Acheive Booking
+                        onClick={() => acheiveBooking(bookingDetails.id)}>Cancel Booking
                     </button>
                 </div>
             )}
+                </>
+            }
         </div>
     );
 };

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
 import Pagination from '../common/Pagination';
 import RoomResult from '../common/RoomResult';
+import LoaderV2 from '../LoaderV2';
 
 const ManageRoomPage = () => {
   const [rooms, setRooms] = useState([]);
@@ -11,16 +12,20 @@ const ManageRoomPage = () => {
   const [selectedRoomType, setSelectedRoomType] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [roomsPerPage] = useState(5);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchRooms = async () => {
       try {
+        setLoading(true);
         const response = await ApiService.getAllRooms();
         const allRooms = response.roomList;
         setRooms(allRooms);
         setFilteredRooms(allRooms);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.error('Error fetching rooms:', error.message);
       }
     };
@@ -81,8 +86,8 @@ const ManageRoomPage = () => {
         </div>
       </div>
 
-      <RoomResult roomSearchResults={currentRooms} />
-
+      {loading ? <LoaderV2/> : <RoomResult roomSearchResults={currentRooms} />
+ }
       <Pagination
         roomsPerPage={roomsPerPage}
         totalRooms={filteredRooms.length}

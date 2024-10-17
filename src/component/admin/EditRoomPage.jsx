@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
+import LoaderV2 from '../LoaderV2';
 
 const EditRoomPage = () => {
     const { roomId } = useParams();
@@ -15,6 +16,7 @@ const EditRoomPage = () => {
     const [preview, setPreview] = useState(null);
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         const fetchRoomDetails = async () => {
@@ -55,6 +57,7 @@ const EditRoomPage = () => {
 
     const handleUpdate = async () => {
         try {
+            setLoading(true);
             const formData = new FormData();
             formData.append('roomType', roomDetails.roomType);
             formData.append('roomPrice', roomDetails.roomPrice);
@@ -67,7 +70,7 @@ const EditRoomPage = () => {
             const result = await ApiService.updateRoom(roomId, formData);
             if (result.statusCode === 200) {
                 setSuccess('Room updated successfully.');
-                
+                setLoading(false);
                 setTimeout(() => {
                     setSuccess('');
                     navigate('/admin/manage-rooms');
@@ -75,6 +78,7 @@ const EditRoomPage = () => {
             }
             setTimeout(() => setSuccess(''), 5000);
         } catch (error) {
+            setLoading(false);
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
         }
@@ -83,16 +87,18 @@ const EditRoomPage = () => {
     const handleDelete = async () => {
         if (window.confirm('Do you want to delete this room?')) {
             try {
+                setLoading(true);
                 const result = await ApiService.deleteRoom(roomId);
                 if (result.statusCode === 200) {
                     setSuccess('Room Deleted successfully.');
-                    
+                    setLoading(false);
                     setTimeout(() => {
                         setSuccess('');
                         navigate('/admin/manage-rooms');
                     }, 3000);
                 }
             } catch (error) {
+                setLoading(false);
                 setError(error.response?.data?.message || error.message);
                 setTimeout(() => setError(''), 5000);
             }
@@ -145,8 +151,9 @@ const EditRoomPage = () => {
                         onChange={handleChange}
                     ></textarea>
                 </div>
-                <button className="update-button" onClick={handleUpdate}>Update Room</button>
-                <button className="delete-button" onClick={handleDelete}>Delete Room</button>
+                {loading ? <LoaderV2/> : <>
+                    <button className="update-button" onClick={handleUpdate}>Update Room</button>
+                    <button className="delete-button" onClick={handleDelete}>Delete Room</button></>}
             </div>
         </div>
     );

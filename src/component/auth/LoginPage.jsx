@@ -1,11 +1,13 @@
 import React, { useState } from "react";
-import { useNavigate,useLocation } from "react-router-dom";
+import { useNavigate,useLocation, NavLink } from "react-router-dom";
 import ApiService from "../../service/ApiService";
+import Loader from "../common/Loader";
 
 function LoginPage() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -22,13 +24,16 @@ function LoginPage() {
         }
 
         try {
+            setLoading(true);
             const response = await ApiService.loginUser({email, password});
             if (response.statusCode === 200) {
+                setLoading(false);
                 localStorage.setItem('token', response.token);
                 localStorage.setItem('role', response.role);
                 navigate(from, { replace: true });
             }
         } catch (error) {
+            setLoading(false);
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
         }
@@ -57,14 +62,14 @@ function LoginPage() {
                         required
                     />
                 </div>
-                <button type="submit">Login</button>
+                <button type="submit">{loading ? (<Loader/>):("login")}</button>
             </form>
 
             <p className="register-link">
-                Forgot your password? <a href="/forgot-password">Reset your password</a>
+                Forgot your password? <NavLink to="/forgot-password">Reset your password</NavLink>
             </p>
             <p className="register-link">
-                Don't have an account? <a href="/register">Register</a>
+                Don't have an account? <NavLink to="/register">Register</NavLink>
             </p>
         </div>
     );

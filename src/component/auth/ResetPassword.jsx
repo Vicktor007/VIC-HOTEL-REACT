@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
+import Loader from '../common/Loader';
 
 
 const initialState = {
@@ -14,6 +15,7 @@ const ResetPassword = () => {
     const { password, password2 } = formData;
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
     const { resetToken } = useParams();
@@ -41,12 +43,13 @@ const ResetPassword = () => {
         }
 
         try {
+            setLoading(true);
             const response = await ApiService.resetPassword(tokenId, resetToken, password);
-            
-            console.log(response);
             navigate("/login");
             setSuccessMessage("Password reset successful");
+            setLoading(false);
         } catch (error) {
+            setLoading(false);
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
         }
@@ -78,7 +81,7 @@ const ResetPassword = () => {
                         required
                     />
                 </div>
-                <button type="submit">Reset password</button>
+                <button type="submit">{loading ? (<Loader/>):("Reset Password")}</button>
             </form>
         </div>
     );

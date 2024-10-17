@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
 import Pagination from '../common/Pagination';
+import LoaderV2 from '../LoaderV2';
 
 const ManageBookingsPage = () => {
     const [bookings, setBookings] = useState([]);
@@ -9,16 +10,20 @@ const ManageBookingsPage = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [currentPage, setCurrentPage] = useState(1);
     const [bookingsPerPage] = useState(6);
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
         const fetchBookings = async () => {
             try {
+                setLoading(true);
                 const response = await ApiService.getAllBookings();
                 const allBookings = response.bookingList;
                 setBookings(allBookings);
                 setFilteredBookings(allBookings);
+                setLoading(false);
             } catch (error) {
+                setLoading(false);
                 console.error('Error fetching bookings:', error.message);
             }
         };
@@ -31,6 +36,7 @@ const ManageBookingsPage = () => {
     }, [searchTerm, bookings]);
 
     const filterBookings = (term) => {
+       
         if (term === '') {
             setFilteredBookings(bookings);
         } else {
@@ -38,6 +44,7 @@ const ManageBookingsPage = () => {
                 booking.bookingConfirmationCode && booking.bookingConfirmationCode.toLowerCase().includes(term.toLowerCase())
             );
             setFilteredBookings(filtered);
+           
         }
         setCurrentPage(1);
     };
@@ -65,8 +72,9 @@ const ManageBookingsPage = () => {
                 />
             </div>
 
-            <div className="booking-results">
-                {currentBookings.map((booking) => (
+            
+                {loading ? <LoaderV2/> : <div className="booking-results">
+                    {currentBookings.map((booking) => (
                     <div key={booking.id} className="booking-result-item">
                         <p><strong>Booking Code:</strong> {booking.bookingConfirmationCode}</p>
                         <p><strong>Check In Date:</strong> {booking.checkInDate}</p>
@@ -78,7 +86,8 @@ const ManageBookingsPage = () => {
                         >Manage Booking</button>
                     </div>
                 ))}
-            </div>
+                </div>}
+            
 
             <Pagination
                 roomsPerPage={bookingsPerPage}

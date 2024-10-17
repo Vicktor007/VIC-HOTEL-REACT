@@ -365,6 +365,7 @@ import ApiService from '../../service/ApiService';
 import { useNavigate } from 'react-router-dom';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
+import Loader from '../common/Loader';
 
 function RegisterPage() {
     const navigate = useNavigate();
@@ -378,6 +379,7 @@ function RegisterPage() {
 
     const [errorMessage, setErrorMessage] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     const handleInputChange = (e) => {
        
@@ -400,12 +402,14 @@ function RegisterPage() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true);
         if (!validateForm()) {
             setErrorMessage('Please fill all the fields.');
             setTimeout(() => setErrorMessage(''), 5000);
             return;
         }
         try {
+            
             // Call the register method from ApiService
             const response = await ApiService.registerUser(formData);
 
@@ -419,12 +423,14 @@ function RegisterPage() {
                     phoneNumber: ''
                 });
                 setSuccessMessage('User registered successfully');
+                setLoading(false)
                 setTimeout(() => {
                     setSuccessMessage('');
                     navigate('/login');
                 }, 3000);
             }
         } catch (error) {
+            setLoading(false);
             setErrorMessage(error.response?.data?.message || error.message);
             setTimeout(() => setErrorMessage(''), 5000);
         }
@@ -458,7 +464,7 @@ function RegisterPage() {
                     <label>Password:</label>
                     <input type="password" name="password" value={formData.password} onChange={handleInputChange} required />
                 </div>
-                <button type="submit">Register</button>
+                <button type="submit">{loading ? (<Loader/>):("Register")}</button>
             </form>
             <p className="register-link">
                 Already have an account? <a href="/login">Login</a>

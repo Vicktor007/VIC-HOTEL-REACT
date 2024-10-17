@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ApiService from '../../service/ApiService';
 import { useNavigate } from 'react-router-dom';
+import Loader from '../common/Loader';
 
 const ForgotPassword = () => {
 
@@ -10,6 +11,7 @@ const ForgotPassword = () => {
 
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
+    const [loading, setLoading] = useState(false);
 
     
 
@@ -30,12 +32,14 @@ const ForgotPassword = () => {
             return;
         }
         try {
+            setLoading(true);
             // Call the register method from ApiService
             const response = await ApiService.forgotPassword(email);
 
             // Check if the response is successful
             if (response.statusCode === 200) {
                 // Clear email field after successful registration
+                setLoading(false);
                 setEmail("");
                 setSuccessMessage('Reset Password Email sent! Please check your email');
                 setTimeout(() => {
@@ -44,6 +48,7 @@ const ForgotPassword = () => {
                 }, 3000);
             }
         } catch (error) {
+            setLoading(false);
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
         }
@@ -66,7 +71,7 @@ const ForgotPassword = () => {
                         required
                     />
                 </div>
-                <button type="submit">Send Email</button>
+                <button type="submit">{loading ? (<Loader/>):("Send Email")}</button>
             </form>
 
         </div>

@@ -3,6 +3,7 @@ import ApiService from '../../service/ApiService';
 import Pagination from '../common/Pagination';
 import RoomResult from '../common/RoomResult';
 import RoomSearch from '../common/RoomSearch';
+import LoaderV2 from '../LoaderV2';
 
 
 
@@ -13,6 +14,7 @@ const AllRoomsPage = () => {
   const [selectedRoomType, setSelectedRoomType] = useState('');
   const [currentPage, setCurrentPage] = useState(1);
   const [roomsPerPage] = useState(5);
+  const [loading, setLoading] = useState(false);
 
   // Function to handle search results
   const handleSearchResult = (results) => {
@@ -24,20 +26,26 @@ const AllRoomsPage = () => {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
+        setLoading(true);
         const response = await ApiService.getAllRooms();
         const allRooms = response.roomList;
         setRooms(allRooms);
         setFilteredRooms(allRooms);
+        setLoading(false);
       } catch (error) {
+        setLoading(false);
         console.error('Error fetching rooms:', error.message);
       }
     };
 
     const fetchRoomTypes = async () => {
       try {
+        setLoading(true)
         const types = await ApiService.getRoomTypes();
         setRoomTypes(types);
+        setLoading(false)
       } catch (error) {
+        setLoading(false)
         console.error('Error fetching room types:', error.message);
       }
     };
@@ -83,9 +91,12 @@ const AllRoomsPage = () => {
           ))}
         </select>
       </div>
-      
       <RoomSearch handleSearchResult={handleSearchResult} />
-      <RoomResult roomSearchResults={currentRooms} />
+      {loading ? (<LoaderV2/>) : 
+        
+        <RoomResult roomSearchResults={currentRooms} />
+      }
+      
 
       <Pagination
         roomsPerPage={roomsPerPage}
