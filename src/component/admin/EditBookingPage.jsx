@@ -30,7 +30,7 @@ const EditBookingPage = () => {
     }, [bookingCode]);
 
 
-    const acheiveBooking = async (bookingId) => {
+    const cancelBooking = async (bookingId) => {
         if (!window.confirm('Are you sure you want to cancel this booking?')) {
             return; // Do nothing if the user cancels
         }
@@ -93,7 +93,7 @@ const EditBookingPage = () => {
                     </div>
                     <button
                         className="acheive-booking"
-                        onClick={() => acheiveBooking(bookingDetails.id)}>Cancel Booking
+                        onClick={() => cancelBooking(bookingDetails.id)}>Cancel Booking
                     </button>
                 </div>
             )}

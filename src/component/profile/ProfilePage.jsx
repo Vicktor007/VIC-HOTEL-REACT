@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService';
-import Loader from '../common/Loader';
 import LoaderV2 from '../LoaderV2';
 
 const ProfilePage = () => {
@@ -39,8 +38,31 @@ const ProfilePage = () => {
         navigate('/edit-profile');
     };
 
+    // const cancelBooking = async (bookingId) => {
+    //     if (!window.confirm('Are you sure you want to cancel this booking?')) {
+    //         return; // Do nothing if the user cancels
+    //     }
+
+    //     try {
+    //         setLoading(true);
+    //         const response = await ApiService.cancelBooking(bookingId);
+    //         if (response.statusCode === 200) {
+    //             setSuccessMessage("The boking was Successfully cancelled")
+    //             setLoading(false);
+    //             setTimeout(() => {
+    //                 setSuccessMessage('');
+    //             }, 3000);
+    //         }
+    //     } catch (error) {
+    //         setLoading(false);
+    //         setError(error.response?.data?.message || error.message);
+    //         setTimeout(() => setError(''), 5000);
+    //     }
+    // };
+
     return (
         <div className="profile-page">
+            {error && <p className='error-message'>{error}</p>}
             {loading ? (<div className="profile-load"><LoaderV2/></div>) : ( <>
             {user && <h2>Welcome, {user.name}</h2>}
             <div className="profile-actions">
@@ -67,6 +89,9 @@ const ProfilePage = () => {
                                 <p><strong>Total Guests:</strong> {booking.totalNumOfGuest}</p>
                                 <p><strong>Room Type:</strong> {booking.room.roomType}</p>
                                 <img src={booking.room.roomPhotoUrl} alt="Room" className="room-photo" />
+                               
+                               <div className="booking-nav-button"> <NavLink className="nav"  to={`/bookingDetails/${booking.bookingConfirmationCode}`}>booking details</NavLink></div>
+
                             </div>
                         ))
                     ) : (

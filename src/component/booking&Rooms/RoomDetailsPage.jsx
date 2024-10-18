@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import ApiService from '../../service/ApiService'; // Assuming your service is in a file called ApiService.js
 import DatePicker from 'react-datepicker';
+import Loader from '../common/Loader';
 // import 'react-datepicker/dist/react-datepicker.css';
 
 const RoomDetailsPage = () => {
@@ -22,11 +23,13 @@ const RoomDetailsPage = () => {
   const [showMessage, setShowMessage] = useState(false); // State variable to control message visibility
   const [confirmationCode, setConfirmationCode] = useState(''); // State variable for booking confirmation code
   const [errorMessage, setErrorMessage] = useState(''); // State variable for error message
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         setIsLoading(true); // Set loading state to true
+       
         const response = await ApiService.getRoomById(roomId);
         setRoomDetails(response.room);
         const userProfile = await ApiService.getUserProfile();
@@ -34,7 +37,8 @@ const RoomDetailsPage = () => {
       } catch (error) {
         setError(error.response?.data?.message || error.message);
       } finally {
-        setIsLoading(false); // Set loading state to false after fetching or error
+        setIsLoading(false); 
+        setLoading(false);// Set loading state to false after fetching or error
       }
     };
     fetchData();
@@ -105,6 +109,7 @@ const RoomDetailsPage = () => {
       console.log(checkOutDate)
 
       // Make booking
+      setLoading(true);
       const response = await ApiService.bookRoom(roomId, userId, booking);
       if (response.statusCode === 200) {
         setConfirmationCode(response.bookingConfirmationCode); // Set booking confirmation code
@@ -118,6 +123,8 @@ const RoomDetailsPage = () => {
     } catch (error) {
       setErrorMessage(error.response?.data?.message || error.message);
       setTimeout(() => setErrorMessage(''), 5000); // Clear error message after 5 seconds
+    }finally {
+      setLoading(false);// Set loading state to false after fetching or error
     }
   };
 
@@ -137,16 +144,7 @@ const RoomDetailsPage = () => {
 
   return (
     <div className="room-details-booking">
-      {showMessage && (
-        <p className="booking-success-message">
-          Booking successful! Confirmation code: {confirmationCode}. An SMS and email of your booking details have been sent to you.
-        </p>
-      )}
-      {errorMessage && (
-        <p className="error-message">
-          {errorMessage}
-        </p>
-      )}
+      
       <h2>Room Details</h2>
       <br />
       <img src={roomPhotoUrl} alt={roomType} className="room-details-image" />
@@ -228,7 +226,17 @@ const RoomDetailsPage = () => {
             <h5>How should we send the confirmation code to you?</h5>
             <label for="email" ><input id='email' type="radio" name="notificationMode" value="email" selected onClick={(e) => setNotificationMode(e.target.value)} />Email</label><br/>
             <label for="sms" ><input id='sms' type="radio" name="notificationMode" value="sms" onClick={(e) => setNotificationMode(e.target.value)} />SMS</label><br/>
-            <button onClick={acceptBooking} className="accept-booking">Accept Booking</button>
+            <button onClick={acceptBooking} className="accept-booking">{loading ? (<Loader/>) : ("Accept Booking")}</button>
+            {showMessage && (
+        <p className="booking-success-message">
+          Booking successful! Confirmation code: {confirmationCode}. An {notificationMode} of your booking details have been sent to you.
+        </p>
+      )}
+      {errorMessage && (
+        <p className="error-message">
+          {errorMessage}
+        </p>
+      )}
           </div>
         )}
       </div>
