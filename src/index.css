@@ -27,8 +27,8 @@
   .loaderv2 {
     animation: spin 0.6s linear infinite;
     border-radius: 50%;
-    height: 2rem; /* Increased size */
-    width: 2rem; /* Increased size */
+    height: 1.5rem; /* Increased size */
+    width: 1.5rem; /* Increased size */
     border-top-width: 0.25rem;
     border-top-color: #007F86; /* Gradient start color */
     border-right-color: #f3f3f3; /* Gradient end color */
