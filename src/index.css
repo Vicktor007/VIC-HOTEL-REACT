@@ -38,6 +38,10 @@
     margin: auto;
 }
 
+.loaderv2:hover {
+    border-top-color: #003366;
+}
+
 
 
   .profile-load{
@@ -1186,7 +1190,7 @@ h2 {
 
 
 .phone-group {
-    max-width: 380px;
+    max-width: 320px;
 }
 
 

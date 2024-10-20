@@ -362,7 +362,7 @@
 
 import React, { useState } from 'react';
 import ApiService from '../../service/ApiService';
-import { useNavigate } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import 'react-phone-number-input/style.css';
 import PhoneInput from 'react-phone-number-input';
 import Loader from '../common/Loader';
@@ -453,6 +453,7 @@ function RegisterPage() {
                 <div className="form-group phone-group">
                 <label>Phone number:</label>
                     <PhoneInput
+                    className='phone-group'
                         country="US"
                         value={formData.phoneNumber}
                         onChange={handleChange}
@@ -467,7 +468,7 @@ function RegisterPage() {
                 <button type="submit">{loading ? (<Loader/>):("Register")}</button>
             </form>
             <p className="register-link">
-                Already have an account? <a href="/login">Login</a>
+                Already have an account? <NavLink to="/login">Login</NavLink>
             </p>
         </div>
     );
