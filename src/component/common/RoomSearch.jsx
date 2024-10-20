@@ -14,13 +14,18 @@ const RoomSearch = ({ handleSearchResult }) => {
     const fetchRoomTypes = async () => {
       try {
         const types = await ApiService.getRoomTypes();
-        setRoomTypes(types);
+        if (Array.isArray(types)) {
+          setRoomTypes(types);
+        } else {
+          console.error('Expected an array but got:', types);
+        }
       } catch (error) {
         console.error('Error fetching room types:', error.message);
       }
     };
     fetchRoomTypes();
   }, []);
+  
 
   /**This methods is going to be used to show errors */
   const showError = (message, timeout = 5000) => {
