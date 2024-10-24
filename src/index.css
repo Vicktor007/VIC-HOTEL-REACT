@@ -366,9 +366,6 @@ button[type="submit"]:hover {
     flex-wrap: wrap;
 }
 
-.room-list-item * {
- border: 1px solid red;
-}
 
 .room-list-item-image {
     /* Adjust image width */
