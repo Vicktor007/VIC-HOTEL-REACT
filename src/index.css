@@ -366,8 +366,11 @@ button[type="submit"]:hover {
     flex-wrap: wrap;
 }
 
+.room-list-item * {
+ border: 1px solid red;
+}
+
 .room-list-item-image {
-    width: 20%;
     /* Adjust image width */
     height: 100%;
 }
@@ -377,6 +380,7 @@ button[type="submit"]:hover {
     /* Take remaining space */
     padding: 15px;
     margin-left: 10px;
+    width: 50%;
 }
 
 .room-details h3 {
@@ -842,7 +846,6 @@ p {
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-    margin-right: 10px;
 }
 
 .book-now-button:hover,
@@ -1267,7 +1270,8 @@ h2 {
     }
 
     .room-list-item-image {
-        width: 30%;
+        width: 50%;
+        
     }
 
     .book-now-button {
@@ -1276,6 +1280,7 @@ h2 {
         border: none;
         padding: 5px;
         font-weight: 500;
+        margin: auto;
     }
 
     .all-room-filter-div {
@@ -1318,17 +1323,17 @@ h2 {
 }
 
 @media only screen and (max-width: 830px) {
+    .service-section {
+        flex-direction: column;
+    }
+
     .room-list-item {
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
 
-    .description {
-        max-width: 80%;
-        height: 100px;
-        word-wrap: break-word;
-    }
+
 
     .navbar-ul {
         background-color: #e7f1f1;
