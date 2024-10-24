@@ -140,7 +140,7 @@ const RoomDetailsPage = () => {
     return <p className='room-detail-loading'>Room not found.</p>;
   }
 
-  const { roomType, roomPrice, roomPhotoUrl, description, bookings } = roomDetails;
+  const { roomType, roomPrice, roomPhotoUrl, roomDescription, bookings } = roomDetails;
 
   return (
     <div className="room-details-booking">
@@ -151,7 +151,7 @@ const RoomDetailsPage = () => {
       <div className="room-details-info">
         <h3>{roomType}</h3>
         <p>Price: ${roomPrice} / night</p>
-        <p>{description}</p>
+        <p>{roomDescription}</p>
       </div>
       {bookings && bookings.length > 0 && (
         <div>
