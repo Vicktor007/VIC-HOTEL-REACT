@@ -44,14 +44,15 @@ const ResetPassword = () => {
 
         try {
             setLoading(true);
-            const response = await ApiService.resetPassword(tokenId, resetToken, password);
+             await ApiService.resetPassword(tokenId, resetToken, password);
             navigate("/login");
             setSuccessMessage("Password reset successful");
-            setLoading(false);
+
         } catch (error) {
-            setLoading(false);
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
+        } finally {
+            setLoading(false);
         }
     };
 

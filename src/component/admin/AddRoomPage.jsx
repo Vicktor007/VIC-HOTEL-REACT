@@ -92,16 +92,18 @@ const AddRoomPage = () => {
             const result = await ApiService.addRoom(formData);
             if (result.statusCode === 200) {
                 setSuccess('Room Added successfully.');
-                setLoading(false);
+               
                 setTimeout(() => {
                     setSuccess('');
                     navigate('/admin/manage-rooms');
                 }, 3000);
             }
         } catch (error) {
-            setLoading(false);
+          
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
+        } finally {
+            setLoading(false)
         }
     };
 

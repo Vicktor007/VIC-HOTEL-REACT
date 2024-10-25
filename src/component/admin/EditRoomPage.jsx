@@ -70,7 +70,6 @@ const EditRoomPage = () => {
             const result = await ApiService.updateRoom(roomId, formData);
             if (result.statusCode === 200) {
                 setSuccess('Room updated successfully.');
-                setLoading(false);
                 setTimeout(() => {
                     setSuccess('');
                     navigate('/admin/manage-rooms');
@@ -78,9 +77,10 @@ const EditRoomPage = () => {
             }
             setTimeout(() => setSuccess(''), 5000);
         } catch (error) {
-            setLoading(false);
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
+        } finally{
+            setLoading(false)
         }
     };
 
@@ -91,16 +91,16 @@ const EditRoomPage = () => {
                 const result = await ApiService.deleteRoom(roomId);
                 if (result.statusCode === 200) {
                     setSuccess('Room Deleted successfully.');
-                    setLoading(false);
                     setTimeout(() => {
                         setSuccess('');
                         navigate('/admin/manage-rooms');
                     }, 3000);
                 }
             } catch (error) {
-                setLoading(false);
                 setError(error.response?.data?.message || error.message);
                 setTimeout(() => setError(''), 5000);
+            } finally{
+                setLoading(false)
             }
         }
     };

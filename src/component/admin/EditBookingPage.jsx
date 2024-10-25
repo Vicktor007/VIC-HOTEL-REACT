@@ -19,10 +19,12 @@ const EditBookingPage = () => {
                 setLoading(true)
                 const response = await ApiService.getBookingByConfirmationCode(bookingCode);
                 setBookingDetails(response.booking);
-                setLoading(false);
+            
             } catch (error) {
-                setLoading(false)
+              
                 setError(error.message);
+            } finally{
+                setLoading(false)
             }
         };
 
@@ -40,16 +42,16 @@ const EditBookingPage = () => {
             const response = await ApiService.cancelBooking(bookingId);
             if (response.statusCode === 200) {
                 setSuccessMessage("The boking was Successfully cancelled")
-                setLoading(false);
                 setTimeout(() => {
                     setSuccessMessage('');
                     navigate('/admin/manage-bookings');
                 }, 3000);
             }
         } catch (error) {
-            setLoading(false);
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
+        } finally {
+            setLoading(false);
         }
     };
 

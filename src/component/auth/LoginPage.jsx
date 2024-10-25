@@ -27,15 +27,17 @@ function LoginPage() {
             setLoading(true);
             const response = await ApiService.loginUser({email, password});
             if (response.statusCode === 200) {
-                setLoading(false);
+               
                 localStorage.setItem('token', response.token);
                 localStorage.setItem('role', response.role);
                 navigate(from, { replace: true });
             }
         } catch (error) {
-            setLoading(false);
+            
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
+        } finally {
+            setLoading(false)
         }
     };
 

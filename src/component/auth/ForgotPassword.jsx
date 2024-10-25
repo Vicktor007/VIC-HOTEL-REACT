@@ -39,7 +39,7 @@ const ForgotPassword = () => {
             // Check if the response is successful
             if (response.statusCode === 200) {
                 // Clear email field after successful registration
-                setLoading(false);
+               
                 setEmail("");
                 setSuccessMessage('Reset Password Email sent! Please check your email');
                 setTimeout(() => {
@@ -48,9 +48,11 @@ const ForgotPassword = () => {
                 }, 3000);
             }
         } catch (error) {
-            setLoading(false);
+           
             setError(error.response?.data?.message || error.message);
             setTimeout(() => setError(''), 5000);
+        } finally {
+            setLoading(false)
         }
     };
 

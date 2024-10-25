@@ -359,11 +359,13 @@ button[type="submit"]:hover {
     width: calc(95% - 20px);
     height: 20vh;
     margin: 5px auto;
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     border-radius: 5px;
     overflow: hidden;
     display: flex;
     flex-wrap: wrap;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding-right: 5px;
 }
 
 
@@ -453,7 +455,7 @@ button[type="submit"]:hover {
     flex: 1 1 45%;
     /* Two cards on one row, adjust width as needed */
     margin: 10px;
-    border: 1px solid #ddd;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     padding: 15px;
     display: flex;

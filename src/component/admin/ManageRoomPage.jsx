@@ -23,10 +23,10 @@ const ManageRoomPage = () => {
         const allRooms = response.roomList;
         setRooms(allRooms);
         setFilteredRooms(allRooms);
-        setLoading(false);
       } catch (error) {
-        setLoading(false);
         console.error('Error fetching rooms:', error.message);
+      } finally {
+        setLoading(false)
       }
     };
 

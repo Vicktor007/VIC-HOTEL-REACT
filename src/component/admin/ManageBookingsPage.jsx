@@ -21,10 +21,10 @@ const ManageBookingsPage = () => {
                 const allBookings = response.bookingList;
                 setBookings(allBookings);
                 setFilteredBookings(allBookings);
-                setLoading(false);
             } catch (error) {
-                setLoading(false);
                 console.error('Error fetching bookings:', error.message);
+            } finally {
+                setLoading(false)
             }
         };
 
