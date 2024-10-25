@@ -93,6 +93,21 @@
     display: none;
 }
 
+.menu-button {
+    background-image: url('../public/assets/images/bars-solid.svg');
+    background-size: contain;
+    width: 30px; /* Adjust size as needed */
+    height: 30px; /* Adjust size as needed */
+    background-repeat: no-repeat;
+}
+
+
+.close-button img {
+    width: 10%;
+    height: 10%;
+}
+
+
 .navbar-brand a {
     font-size: 24px;
     font-weight: bold;

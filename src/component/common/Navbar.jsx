@@ -31,9 +31,9 @@ function Navbar(){
             <div className="navbar-brand">
                 <NavLink to="/">Vic Royal</NavLink>
             </div>
-            <div className="menu-button" onClick={toggleDropdown}> menu</div>
+            <div className="menu-button" onClick={toggleDropdown}> </div>
             <ul onClick={toggleDropdown} className={`navbar-ul ${dropdownOpen ? "a" : ""}`}>
-                <li className="close-button"> close</li>
+                <li className="close-button"> <img src="/assets/images/xmark-solid.svg" alt="close" /> </li>
                 <li><NavLink to="/" activeclassname="active">Home</NavLink></li>
                 <li><NavLink to="/rooms" activeclassname="active">Rooms</NavLink></li>
                 <li><NavLink to="/find-booking" activeclassname="active">Find my Booking</NavLink></li>
