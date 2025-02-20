@@ -38,6 +38,9 @@ const RoomResult = ({ roomSearchResults }) => {
 
                         </div>
                     ))}
+                    <div  className="room-list-item">
+                    <img className='room-list-item-image' src="https://drive.usercontent.google.com/download?id=1mpgUr4HnrG441iFpHgGyGA3qhnDlILif&export=view&authuser=0" alt="roomimage" />
+                    </div>
                 </div>
             )}
         </section>

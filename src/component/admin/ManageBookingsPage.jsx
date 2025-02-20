@@ -74,6 +74,7 @@ const ManageBookingsPage = () => {
 
             
                 {loading ? <LoaderV2/> : <div className="booking-results">
+                   
                     {currentBookings.map((booking) => (
                     <div key={booking.id} className="booking-result-item">
                         <p><strong>Booking Code:</strong> {booking.bookingConfirmationCode}</p>
@@ -87,7 +88,7 @@ const ManageBookingsPage = () => {
                     </div>
                 ))}
                 </div>}
-            
+                {currentBookings.length === 0 && <p className='text-center'>No bookings found.</p>}
 
             <Pagination
                 roomsPerPage={bookingsPerPage}

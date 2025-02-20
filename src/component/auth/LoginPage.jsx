@@ -64,7 +64,7 @@ function LoginPage() {
                         required
                     />
                 </div>
-                <button type="submit">{loading ? (<Loader/>):("login")}</button>
+                <button type="submit" disabled={loading}>{loading ? (<Loader/>):("login")}</button>
             </form>
 
             <p className="register-link">

@@ -30,18 +30,14 @@
     height: 1.5rem; /* Increased size */
     width: 1.5rem; /* Increased size */
     border-top-width: 0.25rem;
-    border-top-color: #007F86; /* Gradient start color */
+    border-top-color: transparent;
+    /* border-top-color: #007F86; Gradient start color */
     border-right-color: #f3f3f3; /* Gradient end color */
     border-bottom-color: #f3f3f3; /* Gradient end color */
     border-left-color: #f3f3f3; /* Gradient end color */
     border-style: solid; /* Changed to solid */
     margin: auto;
 }
-
-.loaderv2:hover {
-    border-top-color: #003366;
-}
-
 
 
   .profile-load{
@@ -96,10 +92,11 @@
 .menu-button {
     background-image: url('../public/assets/images/bars-solid.svg');
     background-size: contain;
-    width: 30px; /* Adjust size as needed */
-    height: 30px; /* Adjust size as needed */
+    width: 30px; 
+    height: 30px; 
     background-repeat: no-repeat;
 }
+
 
 
 .close-button img {
@@ -141,6 +138,10 @@
 
 .navbar-ul li a.active {
     color: #FF7F50;
+}
+
+.text-center{
+    text-align: center;
 }
 
 .auth-container {
@@ -1370,7 +1371,13 @@ h2 {
         padding: 10px 20px;
     }
 
-    .menu-button, .close-button {
+    .menu-button {
         display: block;
+    }
+
+    .close-button{
+        display: flex;
+    align-items: end;
+    justify-content: end;
     }
   }
